@@ -32,13 +32,10 @@
 '''
 
 import shelve
-from collections import namedtuple
-import logging,datetime
+import logging
 import atexit
-import sys
 import os
 import datetime
-#from functools import reduce
 
 #日志基本配置.
 today=datetime.date.today()
@@ -59,11 +56,7 @@ try:
 except KeyError:
     info['Trial Times'] = 1
 finally:
-    logging.debug("【系统运行记录】第 %d 次测试运行脚本。"%(info['Trial Times']))
-
-
-#节点属性.
-#Node = namedtuple(typename="Node_tuple",field_names=("node_name","node_type","node_load","relative_nodes", "relative_distance"))
+    logging.debug("【系统运行记录】第 %d 次测试运行脚本。" % (info['Trial Times']))
 
 #节点类型.
 NODE_TYPES = {1:"中心节点",
@@ -75,55 +68,6 @@ ROUTE_TYPES = {1:"直连线路",
                2:"巡回线路",
                3:"中转线路"}
 
-class Node:
-    Count = 0
-    def __init__(self,node_name:str,node_type:int,load:float = 0) -> None:
-        Node.Count += 1
-        print("EVENT-ADD-Node {} deleted.".format(self.name))
-        self.name = node_name
-        self.relation = {}
-        self.load = load
-        self.type = node_type
-
-    def __del__(self):
-        Node.Count -= 1
-        print("EVENT-DELETE-Node {} deleted.".format(self.name))
-
-    def add_relation(self,relative_node_name:str,distance:float):
-        self.relation[relative_node_name]=distance   #添加临近节点
-        pass
-
-class Route:
-    Count = 0
-    def __init__(self,nodes:list):
-        Route.Count += 1
-        pass
-        
-    def __del__(self):
-        Route.Count -= 1
-        pass
-    
-    def add_route(self,node):
-        pass
-
-def saving(nodes_matrix:dict):
-    nodes = nodes_matrix
-    def generate_nodes(nodes):
-        for k,v in nodes:    
-            pass
-    
-    def generate_straight_routes(nodes):
-        pass
-    def generate_round_routes(nodes):
-        pass
-
-    def calculate_savings(nodes):
-        pass
-
-    def generate_ovarall_routes(nodes):
-        pass
-
-    return None
 
 def data_check(node_data):
     logging.debug("【初始数据检查】初始数据检查开始..")
@@ -131,29 +75,29 @@ def data_check(node_data):
     nodes = node_data.keys()
     
     for key,data in node_data:
-        dist_dict = dict(zip(data[3],data[4]))
+        dist_dict = dict(zip(data[2],data[3]))
         #节点数量与对应距离数据点个数检查.
-        if len(data[3])!=len(data[4]):
+        if len(data[2])!=len(data[3]):
             logging.error("【初始数据检查】: Node %s 关联节点数量与节点距离数量不一致，请检查后重新录入数据！"% key)
         #相邻节点名称唯一性检查.
-        unique_counter = Counter(data[3])
+        unique_counter = Counter(data[2])
         if sum(map(lambda x: x-1,unique_counter.values())):
             logging.error("【初始数据检查】: Node %s 关联节点不唯一，请检查后重新录入数据！"% key)
             #sys.exit()
-        for rel_node in data[3]:
-            rel_dist_dict = dict(zip(node_data[rel_node][3],node_data[rel_node][4]))
+        for rel_node in data[2]:
+            rel_dist_dict = dict(zip(node_data[rel_node][2],node_data[rel_node][3]))
             assert rel_node in nodes
-            if key not in nodes[rel_node][3]:
+            if key not in nodes[rel_node][2]:
                 logging.error("【初始数据检查】: Node %s 关联节点 %s 不存在对应数据，请检查！"% (key,rel_node))
                 #sys.exit()
-            if dist_dict[rel_node]!= rel_dist_dict[key]:
-               logging.error("【初始数据检查】: Node %s 关联节点 %s 所记录的距离不一致，请检查！"% (key,rel_node))
-               #sys.exit()
+            if dist_dict[rel_node] != rel_dist_dict[key]:
+                logging.error("【初始数据检查】: Node %s 关联节点 %s 所记录的距离不一致，请检查！"% (key,rel_node))
             pass
+
 
 def route_exists(dictkeys,target_node:str):
     if dictkeys:
-        status_map = map(lambda x:x[-1]==target_node,dictkeys)
+        status_map = map(lambda x:x[-1] == target_node,dictkeys)
         return sum(list(status_map))
     else:
         return 0
@@ -174,7 +118,7 @@ def main():
                 'g':[2,0.6,'hpyf',[2,3,4,6]],
                 'h':[2,0.8,'ipg',[9,4,2]],
                 'i':[2,0.6,'ajph',[11,8,10,9]],
-                'j':[3,1.6,'ai',[9,8]]} 
+                'j':[3,1.6,'ai',[9,8]]}
     car_load = [2,4]
     distance_limit = 40
     
@@ -182,7 +126,6 @@ def main():
     data_check(node_matrix)
 
     #②数据有效性检查通过后，直连路线生成.
-    #routes_direct_dict = {'connected_nodes':['线路类型',线路长度]}
     routes_direct_dict = {}
     
     def generate_direct_routes(nodes):
@@ -195,7 +138,7 @@ def main():
                 distance = nodes['p'][3][index]
                 routes_direct_dict['p'+node]= [1,distance]
                 logging.debug("【生成线路】【直通线路】 p ---> %s, 距离 %d ."%(node,distance))
-            #②对于“中途节点”，探索它的下一个节点，当它是“非直通周围节点”则进行路径生成；
+            #②对于“中途节点”，探索它的下一个节点，当下一个节点是“非直通周围节点”则进行路径生成；
             if nodes[node][0] == 4:
                 for indirect_node in nodes[node][2]:
                     #如果跳转后节点为非直通周围节点，则进行路线生成；
@@ -213,7 +156,8 @@ def main():
                     else:
                         #如果跳转后的节点为其他类型的节点则不作处理（比如直通的周围节点、中途节点（本例中不存在，暂不予考虑））；
                         pass
-            #③对于非直连周围节点，再检查一次是否已经都生成了路线（例题中的j节点），如果没有生成路线，则补充生成；
+                    
+            #③对于非直连周围节点，再检查一次是否已经都生成了路线 例题中的j节点 ，如果没有生成路线，则补充生成；
             if nodes[node][0]==3:
                 #如果已经生成过路线了就不做操作；
                 if route_exists(routes_direct_dict.keys(),node):
@@ -226,19 +170,20 @@ def main():
                                         + nodes[node][3][nodes[node][2].index(indirect_node)]
                             routes_direct_dict['p'+indirect_node+node] = [1,distance]
                             logging.debug("【生成线路】【中转线路】 p ---> %s, 距离 %d ."%(node,distance))
-                            
+                            #对线路中已经存在该非直通周围节点的
                             for k in routes_direct_dict.keys():
-                                if node in k:
+                                if k[-1] == node:
                                     distance_old = routes_direct_dict[k][1]
                                     if distance <= distance_old:
                                         logging.debug("【删除线路】【中转线路】 p ---> %s, 距离 %d ."%(k[-1],routes_direct_dict.pop(k)))
                                     elif distance > distance_old:
                                         routes_direct_dict.pop('p'+indirect_node+node)
-                                        pass
-                            
                         else:
                             continue
 
+
+if __name__ == "__main__":
+    main()
 #测试推送git
 
 
