@@ -42,10 +42,13 @@ import datetime
 
 #日志基本配置.
 today=datetime.date.today()
-print(datetime.date.strftime(today,'%x'))
+print(datetime.date.strftime(today,'%Y%m%d'))
 fn=os.path.join(os.path.curdir,"logs",datetime.date.strftime(today,'%Y%m%d')+".log")
 
-logging.basicConfig(level=logging.DEBUG,filename=fn,filemode='a')
+if not os.path.exists(os.path.dirname(fn)):
+    os.mkdir(os.path.abspath(os.path.dirname(fn)))
+else:
+    logging.basicConfig(level=logging.DEBUG,filename=fn,filemode='a')
 
 info_path = "./info.db"
 
