@@ -170,7 +170,7 @@ def main():
                                         + nodes[node][3][nodes[node][2].index(indirect_node)]
                             routes_direct_dict['p'+indirect_node+node] = [1,distance]
                             logging.debug("【生成线路】【中转线路】 p ---> %s, 距离 %d ."%(node,distance))
-                            #对线路中已经存在该非直通周围节点的
+                            #对线路中已经存在该非直通周围节点的，进行线路长度判定；如果新记录较短，则删除老记录；如果老记录较短，则删除新纪录；
                             for k in routes_direct_dict.keys():
                                 if k[-1] == node:
                                     distance_old = routes_direct_dict[k][1]
