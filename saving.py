@@ -49,14 +49,14 @@ else:
 
 info_path = "./info.db"
 
-info = shelve.open(info_path,writeback=True)
+info = shelve.open(info_path,flag='c',writeback=True)
 
 try:
-    info['Trial Times'] = +1
+    info['trial_times'] = +1
 except KeyError:
-    info['Trial Times'] = 1
+    info['trial_times'] = 1
 finally:
-    logging.debug("【系统运行记录】第 %d 次测试运行脚本。" % (info['Trial Times']))
+    logging.debug("【系统运行记录】第 %d 次测试运行脚本。" % (info['trial_times']))
 
 #节点类型.
 NODE_TYPES = {1:"中心节点",
@@ -69,12 +69,12 @@ ROUTE_TYPES = {1:"直连线路",
                3:"中转线路"}
 
 
-def data_check(node_data):
+def data_check(node_data: dict) -> object:
     logging.debug("【初始数据检查】初始数据检查开始..")
     from collections import Counter
     nodes = node_data.keys()
     
-    for key,data in node_data:
+    for key,data in node_data.items():
         dist_dict = dict(zip(data[2],data[3]))
         #节点数量与对应距离数据点个数检查.
         if len(data[2])!=len(data[3]):
