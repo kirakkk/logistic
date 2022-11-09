@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e4db62aa-fce7-4ebb-bb10-59f4b8233dad" name="变更" comment="修改generate_direct_routes部分逻辑。">
-      <change afterPath="$PROJECT_DIR$/info.db.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/20221108.log" afterDir="false" />
+    <list default="true" id="e4db62aa-fce7-4ebb-bb10-59f4b8233dad" name="变更" comment="1、更正shelve储存逻辑；&#10;2、更正data_check函数逻辑；">
+      <change afterPath="$PROJECT_DIR$/logs/20221109.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/info.db.bak" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/info.db.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/info.db.dir" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/saving.py" beforeDir="false" afterPath="$PROJECT_DIR$/saving.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,7 +48,7 @@
       <option name="presentableId" value="Default" />
       <updated>1667724751239</updated>
       <workItem from="1667802468352" duration="2891000" />
-      <workItem from="1667870938731" duration="6357000" />
+      <workItem from="1667870938731" duration="11253000" />
     </task>
     <task id="LOCAL-00001" summary="完善日志文件夹路径逻辑。">
       <created>1667869921459</created>
@@ -75,7 +71,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667877915069</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="1、更正shelve储存逻辑；&#10;2、更正data_check函数逻辑；">
+      <created>1667901874625</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1667901874625</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -96,7 +99,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="完善日志文件夹路径逻辑。" />
     <MESSAGE value="修改generate_direct_routes部分逻辑。" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改generate_direct_routes部分逻辑。" />
+    <MESSAGE value="1、更正shelve储存逻辑；&#10;2、更正data_check函数逻辑；" />
+    <option name="LAST_COMMIT_MESSAGE" value="1、更正shelve储存逻辑；&#10;2、更正data_check函数逻辑；" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -115,6 +119,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/logisticnew$saving.coverage" NAME="saving 覆盖结果" MODIFIED="1667901276832" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/logisticnew$saving.coverage" NAME="saving 覆盖结果" MODIFIED="1667958320462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -103,6 +103,14 @@ def route_exists(dictkeys,target_node:str):
         return 0
 
 
+
+def type3node_logic():
+    '''
+    该函数用来检验非直通周围节点的类型，以确定适用哪一种距离计算逻辑；
+    :return:
+    '''
+    pass
+
 def main():
     #用字典储存节点图，两个中途节点分别标记为x,y;
     #逆时针记录临近节点；
