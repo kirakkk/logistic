@@ -103,13 +103,15 @@ def route_exists(dictkeys,target_node:str):
         return 0
 
 
-
 def type3node_logic():
     '''
     该函数用来检验非直通周围节点的类型，以确定适用哪一种距离计算逻辑；
+    对于非直通周围节点N，有三种主要的邻近节点R*及中心节点P关联情况：
+        1、N-->与
     :return:
     '''
     pass
+
 
 def main():
     #用字典储存节点图，两个中途节点分别标记为x,y;
@@ -127,7 +129,7 @@ def main():
                 'h':[2,0.8,'ipg',[9,4,2]],
                 'i':[2,0.6,'ajph',[11,8,10,9]],
                 'j':[3,1.6,'ai',[9,8]]}
-    car_load = [2,4]
+    car_load = (2,4)
     distance_limit = 40
     
     #①检查数据有效性.
