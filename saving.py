@@ -110,7 +110,7 @@ def type3node_logic():
         1、N-->与
     :return:
     '''
-    pass
+    return true
 
 
 def main():
@@ -190,6 +190,17 @@ def main():
                                         routes_direct_dict.pop('p'+indirect_node+node)
                         else:
                             continue
+
+    def calculate_round_trip():
+    '''计算巡回路线：
+    1、找出所有巡回路线的可能配对；
+    2、计算节约值；
+    3、排序 节约值；
+    4、在限制值范围内生成可行的线路；
+    5、输出线路结果，并计算最终的节约值 和 车辆数；
+    '''
+
+        pass
 
 
 if __name__ == "__main__":
