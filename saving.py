@@ -103,13 +103,12 @@ def route_exists(dictkeys,target_node:str):
         return 0
 
 
-
 def type3node_logic():
     '''
     该函数用来检验非直通周围节点的类型，以确定适用哪一种距离计算逻辑；
     :return:
     '''
-    pass
+    return true
 
 def main():
     #用字典储存节点图，两个中途节点分别标记为x,y;
@@ -188,6 +187,17 @@ def main():
                                         routes_direct_dict.pop('p'+indirect_node+node)
                         else:
                             continue
+
+    def calculate_round_trip():
+    '''计算巡回路线：
+    1、找出所有巡回路线的可能配对；
+    2、计算节约值；
+    3、排序 节约值；
+    4、在限制值范围内生成可行的线路；
+    5、输出线路结果，并计算最终的节约值 和 车辆数；
+    '''
+
+        pass
 
 
 if __name__ == "__main__":
